@@ -23,6 +23,14 @@ public class AccountService {
         }
     }
 
+    public Account getAccount(Account account){
+        if (accountDAO.accountLogin(account) == null){
+            return null;
+        } else {
+            return accountDAO.accountLogin(account);
+        }
+    }
+
 
     
 }
