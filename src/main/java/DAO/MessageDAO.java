@@ -29,6 +29,47 @@ public class MessageDAO {
         return null;
     }
 
+    public List<Message> getAllMessages(){
+        Connection conn = ConnectionUtil.getConnection();
+        List<Message> messages = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM message;";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                Message message = new Message(rs.getInt("message_id"), rs.getInt("posted_by"), rs.getString("message_text"), rs.getLong("time_posted_epoch"));
+                messages.add(message);
+            }
+        } catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return messages;
+    }
+
+    public List<Message> getAllMessagesByAcctId(int id){
+        Connection conn = ConnectionUtil.getConnection();
+        List<Message> messages = new ArrayList<>();
+        try{
+            String sql = "SELECT * FROM message WHERE posted_by = ?;";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                Message msg = new Message(rs.getInt("message_id"), rs.getInt("posted_by"), rs.getString("message_text"), rs.getLong("time_posted_epoch"));
+                messages.add(msg);
+            }
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return messages;
+    }
+
+   /* public List<Message> getAllMessagesById(int id){
+
+    }
+*/
     
 
 

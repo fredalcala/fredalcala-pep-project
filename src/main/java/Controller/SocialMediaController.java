@@ -3,10 +3,10 @@ package Controller;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 import Model.Account;
-import DAO.AccountDAO;
+//import DAO.AccountDAO;
 import Service.AccountService;
 import Model.Message;
-import DAO.MessageDAO;
+//import DAO.MessageDAO;
 import Service.MessageService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,11 +17,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * refer to prior mini-project labs and lecture materials for guidance on how a controller may be built.
  */
 public class SocialMediaController {
-    AccountDAO accountDAO = new AccountDAO();
-    AccountService accountService = new AccountService(accountDAO);
-
-    MessageDAO messageDAO = new MessageDAO();
-    MessageService messageService = new MessageService(messageDAO, accountDAO);
+    AccountService accountService = new AccountService();
+    MessageService messageService = new MessageService();
 
     /**
      * In order for the test cases to work, you will need to write the endpoints in the startAPI() method, as the test
@@ -33,6 +30,7 @@ public class SocialMediaController {
         app.post("/register", this::postAccountHandler);
         app.post("/login", this::accountLoginHandler);
         app.post("/messages", this::postMessageHandler);
+        app.get("/messages", this::getAllMessagesHandler);
 
         return app;
     }
@@ -76,8 +74,10 @@ public class SocialMediaController {
             ctx.json(newMessage);
             ctx.status(200);
         }
+    }
 
-
+    private void getAllMessagesHandler(Context ctx) throws JsonProcessingException{
+        ctx.json(messageService.getAllMessages());
     }
 
 }
