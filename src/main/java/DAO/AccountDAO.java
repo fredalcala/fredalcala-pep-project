@@ -49,7 +49,7 @@ public class AccountDAO {
         return null;
     }
 
-    /*public Account getAccount_id(int id) {
+    public Account getAccount_id(int id) {
         Connection conn = ConnectionUtil.getConnection();
         try {
             String sql = "SELECT * FROM account WHERE account_id = ?;";
@@ -67,7 +67,7 @@ public class AccountDAO {
         }
         return null;
     }
-    */
+    
 
 
     

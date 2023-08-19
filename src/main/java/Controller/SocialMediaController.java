@@ -21,7 +21,7 @@ public class SocialMediaController {
     AccountService accountService = new AccountService(accountDAO);
 
     MessageDAO messageDAO = new MessageDAO();
-    MessageService messageService = new MessageService(messageDAO);
+    MessageService messageService = new MessageService(messageDAO, accountDAO);
 
     /**
      * In order for the test cases to work, you will need to write the endpoints in the startAPI() method, as the test
