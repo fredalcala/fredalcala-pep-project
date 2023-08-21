@@ -34,6 +34,10 @@ public class MessageService {
         return messageDAO.getMessageById(id);
     }
 
+    public List<Message> getAllMessagesByAcctId(int id){
+        return messageDAO.getAllMessagesByAcctId(id);
+    }
+
     public Message editMessage(int message_id, Message message){
         if (messageDAO.getMessageById(message_id) == null || message.getMessage_text().length() >= 255 || message.getMessage_text().length() == 0){
             return null;
